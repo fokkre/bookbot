@@ -4,4 +4,4 @@ A Python program that can analyze an entire book's text and print out an interes
 
 ## Dependancies
 
-- Pyhton 3+
+- Pyhton 3.10.7
