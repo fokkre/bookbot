@@ -4,10 +4,21 @@ def main():
     books_path = "books/"
     list_of_books = book_list(books_path)
     
+    print(f"Processing library at path: {books_path}")
     for book in list_of_books:
-        #print(book_as_string(books_path, book))
-        print(book_word_count(books_path, book))
-        #print(book_letter_count(books_path, book))
+        words = book_word_count(books_path, book)
+        chars = book_letter_count(books_path, book)
+        unsorted_chars = []
+        print(f"Scanning book {book}")
+        print(f"Found {words} words in the document {book}")
+        print("")
+        for c in chars:
+            if c.isalpha():
+                unsorted_chars.append((c,chars[c]))
+        unsorted_chars.sort(key=lambda char: char[1], reverse=True)
+        for pair in unsorted_chars:
+            print(f"The '{pair[0]}' character was found {pair[1]} in the document")
+
 
 def book_list(books_path):
     list_of_books = []
@@ -26,20 +37,18 @@ def book_word_count(books_path, book_title):
     words = book_as_string(books_path, book_title).split()
     return(len(words))
 
-#def book_letter_count():
+def book_letter_count(books_path, book_title):
+    text_as_string = book_as_string(books_path, book_title).lower()
+    character_count = {}
+    character_list = []
 
-    # with open("books/frankenstein.txt") as b:
-    #     book_as_string = ""
-    #     character_count = {}
-
-    #     book_as_string = b.read().lower()
-    #     for c in book_as_string:
-    #         if c in character_count:
-    #             character_count[c] +=1
-    #         else:
-    #             character_count[c] = 0
-        
-    #     print(character_count)
+    for c in text_as_string:
+        if c in character_count:
+            character_count[c] +=1
+        else:
+            character_count[c] = 1
+    
+    return character_count
 
 main()
         
